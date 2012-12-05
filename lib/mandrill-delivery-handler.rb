@@ -16,7 +16,7 @@ class MandrillDeliveryHandler
         :subject => message.subject,
         :from_name => settings[:from_name],
         :from_email => message.from.first,
-        :to => message.to
+        :to => ensure_mandrill_compatible_mail_format(message.to)
       }
     }
 
@@ -48,6 +48,21 @@ class MandrillDeliveryHandler
     content
   end
 
+  def ensure_mandrill_compatible_mail_format(to)
+    #to: recipients can be either "someone@somewhere.net" or "That Guy <someone@somewhere.net>"
+
+    to.map do |recipient|
+      if email_index = recipient =~ /<.*>$/
+        {
+          :name => recipient[0, email_index].strip,
+          :email => recipient[email_index + 1, recipient.length].chop #remove leading and trailing <,>
+        }
+      else
+        {email: recipient}
+      end
+     # recipient.is_a?(String) ? {:email => recipient} : recipient
+    end
+  end
 end
 
 if defined?(ActionMailer)
