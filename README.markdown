@@ -1,8 +1,12 @@
 # mailchimp
 
-This a very simple ActionMailer delivery handler for sending messages through MailChimp's Mandrill. It is a partial fork (the now disappeared) https://github.com/mailchimp/mailchimp-gem/
+This a very simple ActionMailer delivery handler for sending messages through MailChimp's Mandrill. 
 
 At the core, it uses https://github.com/tatemae-consultancy/mandrill.
+
+### IMPORTANT NOTE
+
+It is a partial fork of this gem https://github.com/mailchimp/mailchimp-gem/. From what I can tell, that gem was not finished and Mailchimp took the project down. Unfortunately, I was already using it, so I made this fork from local source.
 
 ##Usage
 
